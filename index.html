@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Payload Zero</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Neon Box with Info -->
+    <div class="neon-box">
+        <div class="info">
+            <h1 class="neon-text">PayloadZero</h1>
+            <p class="neon-subtext">A cyber security organization</p>
+            <button id="toggle-music" class="music-btn">Play Music</button>
+            <div id="music-info">
+                <span id="current-time">0:00</span> / 
+                <span id="total-time">0:00</span>
+                <input id="progress-bar" type="range" min="0" max="100" value="0">
+            </div>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo">
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="song1.mp3" type="audio/mp3"> <!-- Default to song1 -->
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
