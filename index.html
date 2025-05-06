@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Payload~0</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Payload~0</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
 
-    <!-- Neon Box with Info -->
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+
+  <!-- Main First-Screen Section -->
+  <section id="main-section">
     <div class="neon-box">
-        <div class="info">
-            <h1 class="neon-text">Payload~0</h1>
-            <p class="neon-subtext">We don’t hack — we create. We don’t destroy — we rebuild. We don’t follow — we lead. We change the system. We change the society. We change everything.They built a pay-to-win world.
-                We’re here to crash it.</p>
-            <button id="toggle-music" class="music-btn">Play Music</button>
-            <div id="music-info">
-                <span id="current-time">0:00</span> / 
-                <span id="total-time">0:00</span>
-                <input id="progress-bar" type="range" min="0" max="100" value="0">
-            </div>
+      <div class="info">
+        <h1 class="neon-text">Payload~0</h1>
+        <p class="neon-subtext">
+          We don’t hack — we create. We don’t destroy — we rebuild.  
+          We don’t follow — we lead. We change the system.  
+          We change the society. We change everything.  
+          They built a pay-to-win world. We’re here to crash it.
+        </p>
+        <button id="toggle-music" class="music-btn">Play Music</button>
+        <div id="music-info">
+          <span id="current-time">0:00</span> /
+          <span id="total-time">0:00</span>
+          <input id="progress-bar" type="range" min="0" max="100" value="0" />
         </div>
-        <img class="logo" src="logo.png" alt="Logo">
+      </div>
+      <img class="logo" src="logo.png" alt="Logo" />
     </div>
 
-    <!-- Background Music -->
-    <audio id="bg-music" loop>
-        <source src="song1.mp3" type="audio/mp3"> <!-- Default to song1 -->
-    </audio>
+    <div class="scroll-message" onclick="scrollToVideo()">
+      ↓ Scroll Down ↓
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Video Section (hidden until you scroll past first screen) -->
+  <section id="video-section">
+    <div class="video-overlay-text">Here’s what we have done</div>
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="your-video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <!-- Background Music -->
+  <audio id="bg-music">
+    <source src="song1.mp3" type="audio/mp3" />
+  </audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
