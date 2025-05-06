@@ -1,22 +1,30 @@
-/* GLOBAL */
+/* GLOBAL & SMOOTH SCROLL */
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   padding: 0;
-  background: #0a0a0a;  /* Keep dark gray */
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #0a0a0a;
   font-family: 'Courier New', monospace;
   color: #00ff99;
-  overflow: hidden;
   cursor: none;
-  transition: background 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* MAIN FIRST-SCREEN SECTION */
+#main-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 /* CUSTOM CURSOR */
 .cursor {
-  position: absolute;
+  position: fixed;
   width: 15px;
   height: 15px;
   background-color: #00ff99;
@@ -26,7 +34,6 @@ body {
   transition: transform 0.2s ease, box-shadow 0.3s;
   z-index: 1000;
 }
-
 .cursor.hovering {
   transform: scale(2.2) translate(-50%, -50%);
   box-shadow: 0 0 15px #00ffaa;
@@ -46,20 +53,18 @@ body {
   max-width: 800px;
   width: 90%;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  z-index: 1;
 }
 
-/* LOGO */
+/* LOGO FLOAT */
 .logo {
   width: 100px;
-  height: auto;
   filter: drop-shadow(0 0 8px #00ff99);
   animation: floatLogo 3s ease-in-out infinite;
 }
-
 @keyframes floatLogo {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+  0%,100% { transform: translateY(0); }
+  50%   { transform: translateY(-8px); }
 }
 
 /* TEXT */
@@ -69,60 +74,114 @@ body {
   flex-direction: column;
   gap: 12px;
 }
-
 .neon-text {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
-  text-shadow: 0 0 20px #00ff99, 0 0 30px #00ffcc, 0 0 50px #00ffcc, 0 0 100px #00ff99;
+  text-shadow:
+    0 0 20px #00ff99,
+    0 0 30px #00ffcc,
+    0 0 50px #00ffcc,
+    0 0 100px #00ff99;
 }
-
 .neon-subtext {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #33ffaa;
-  opacity: 0.8;
+  opacity: 0.9;
   text-shadow: 0 0 8px #00ff99;
 }
 
-/* BUTTON */
+/* MUSIC BUTTON & INFO */
 .music-btn {
   padding: 10px 20px;
-  border: none;
-  background-color: #00ff99;
+  background: #00ff99;
   color: #000;
-  font-size: 1rem;
+  border: none;
   border-radius: 8px;
   box-shadow: 0 0 10px #00ff99;
+  font-size: 1rem;
   cursor: none;
   transition: background 0.3s, transform 0.2s ease, box-shadow 0.3s;
 }
-
 .music-btn:hover {
-  background-color: #00ffaa;
+  background: #00ffaa;
   transform: scale(1.05);
   box-shadow: 0 0 20px #00ffaa;
 }
-
-/* MUSIC INFO */
 #music-info {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 0.9rem;
 }
-
 #progress-bar {
   flex: 1;
   height: 6px;
   border-radius: 4px;
-  background-color: #111;
+  background: #111;
   border: 1px solid #00ff99;
-  outline: none;
   accent-color: #00ff99;
 }
 
-/* ANIMATIONS */
+/* SCROLL DOWN MESSAGE */
+.scroll-message {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: #00ffaa;
+  text-shadow: 0 0 6px #00ffaa;
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%   { opacity: 0.5; }
+}
+
+/* VIDEO SECTION – VISIBLE AFTER SMALL SCROLL */
+#video-section {
+  position: relative;
+  margin-top: 60vh;  /* now appears after a short scroll */
+  padding: 100px 20px;
+  background: #0a0a0a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.video-container {
+  max-width: 960px;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 25px #00ff99;
+  position: relative;
+}
+.video-container video {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0.85) contrast(1.1);
+}
+
+/* OVERLAY TEXT ON VIDEO */
+.video-overlay-text {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #00ff99;
+  text-shadow:
+    0 0 12px #00ffaa,
+    0 0 25px #00ffaa;
+  z-index: 2;
+}
+
+/* SUPPORTING ANIMATIONS */
 @keyframes bigGlow {
   0% {
     box-shadow: 0 0 30px #00ffcc, inset 0 0 15px #00ffcc;
@@ -133,7 +192,6 @@ body {
     transform: scale(1);
   }
 }
-
 @keyframes logoFlash {
   0% {
     filter: drop-shadow(0 0 20px #00ffee);
@@ -144,11 +202,9 @@ body {
     transform: scale(1);
   }
 }
-
 .box-pulse {
   animation: bigGlow 0.25s ease forwards;
 }
-
 .logo-pulse {
   animation: logoFlash 0.25s ease forwards;
 }
