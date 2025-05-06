@@ -5,6 +5,7 @@ const currentTimeEl = document.getElementById("current-time");
 const totalTimeEl = document.getElementById("total-time");
 const cursor = document.querySelector(".cursor");
 const neonBox = document.querySelector(".neon-box");
+const logo = document.querySelector(".logo");
 
 let audioContext, analyser, source, dataArray;
 let lastTrackIndex = -1;
@@ -30,8 +31,8 @@ function getRandomTrack() {
 // Load and play a new track
 function loadAndPlayRandomTrack() {
     const track = getRandomTrack();
-    music.src = track;  // Set the source to a new track
-    music.load();  // Ensure the new track is loaded before playing
+    music.src = track;
+    music.load();
     music.play().catch(err => console.error("Playback failed:", err));
 }
 
@@ -49,24 +50,32 @@ function setupAnalyzer() {
     }
 }
 
-// Beat-reactive animation
+// Beat-reactive animation with more extreme movement and scaling
 function animateBeat() {
     requestAnimationFrame(animateBeat);
     analyser.getByteFrequencyData(dataArray);
-    const avg = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
-    const intensity = Math.min(avg / 150, 1);
 
-    // Box animation
-    neonBox.style.transform = `scale(${1 + intensity * 0.15})`;
-    neonBox.style.boxShadow = `0 0 ${15 + intensity * 30}px #00ff99, inset 0 0 ${5 + intensity * 10}px #00ff99`;
+    const avg = dataArray.reduce((sum, v) => sum + v, 0) / dataArray.length;
+    const beatStrength = Math.max(0, (avg / 255 - 0.05) * 3); // Increased multiplier for more extreme effect
 
-    // Logo animation
-    const logo = document.querySelector(".logo");
-    logo.style.transform = `scale(${1 + intensity * 0.2})`;
-    logo.style.filter = `drop-shadow(0 0 ${8 + intensity * 20}px #00ff99)`;
+    // Increase random movement for more aggressive jitter
+    const randomMovementX = Math.random() * beatStrength * 40 - 20;  // Bigger random X movement
+    const randomMovementY = Math.random() * beatStrength * 40 - 20;  // Bigger random Y movement
+
+    // Amplified bounce effect for more movement
+    const bounceX = Math.sin(Date.now() / 50) * beatStrength * 30;  // Increased bounce X-axis
+    const bounceY = Math.sin(Date.now() / 50) * beatStrength * 30;  // Increased bounce Y-axis
+
+    // Apply the more extreme jitter and scaling effect to the neon box
+    neonBox.style.transform = `translate(${randomMovementX + bounceX}px, ${randomMovementY + bounceY}px) scale(${1 + beatStrength * 0.4})`;  // More scaling for extreme zoom
+    neonBox.style.boxShadow = `0 0 ${40 + beatStrength * 60}px #00ff99, inset 0 0 ${20 + beatStrength * 30}px #00ff99`;
+
+    // Apply more extreme jitter and scaling to the logo
+    logo.style.transform = `translate(${randomMovementX}px, ${randomMovementY}px) scale(${1 + beatStrength * 0.3})`;  // Slightly bigger scaling for the logo
+    logo.style.filter = `drop-shadow(0 0 ${15 + beatStrength * 25}px #00ff99)`;  // Stronger drop shadow for the logo
 }
 
-// Initialize music and start the first track when page is loaded
+// Play first random track on click to bypass autoplay restriction
 window.addEventListener("DOMContentLoaded", () => {
     document.body.addEventListener("click", initMusicOnce);
 });
@@ -75,7 +84,7 @@ function initMusicOnce() {
     loadAndPlayRandomTrack();
     setupAnalyzer();
     toggleBtn.textContent = "Pause Music";
-    document.body.removeEventListener("click", initMusicOnce);  // Remove event listener after initialization
+    document.body.removeEventListener("click", initMusicOnce);
 }
 
 // Toggle play/pause
@@ -113,22 +122,24 @@ function formatTime(sec) {
 
 // 🎵 Auto change to next random song when one ends
 music.addEventListener("ended", () => {
-    loadAndPlayRandomTrack(); // This will now correctly load and play a new track
-    setupAnalyzer(); // Re-setup audio analyzer for the new track
-
-    // Update total time for the new track
-    totalTimeEl.textContent = formatTime(music.duration);
+    loadAndPlayRandomTrack();
 });
 
-// Custom cursor movement
-document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+// Custom mouse cursor follow
+document.addEventListener('mousemove', (e) => {
+    const cursorSize = 20;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    cursor.style.left = `${mouseX - cursorSize / 2}px`;
+    cursor.style.top = `${mouseY - cursorSize / 2}px`;
 });
 
-// Add hover effect to elements
-const hoverTargets = document.querySelectorAll('button, .neon-box, a'); // Add more if needed
-hoverTargets.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+// Handle cursor animation based on hover
+document.querySelectorAll('.neon-box, .logo, .music-btn').forEach(element => {
+    element.addEventListener('mouseenter', () => {
+        cursor.classList.add('hovering');
+    });
+    element.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hovering');
+    });
 });
