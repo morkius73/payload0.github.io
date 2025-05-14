@@ -25,7 +25,7 @@
         </p>
         <button id="toggle-music" class="music-btn">Play Music</button>
         <div id="music-info">
-          <span id="current-time">0:00</span> /
+          <span id="current-time">0:00</span> / 
           <span id="total-time">0:00</span>
           <input id="progress-bar" type="range" min="0" max="100" value="0" />
         </div>
@@ -38,14 +38,16 @@
     </div>
   </section>
 
-  <!-- Video Section (hidden until you scroll past first screen) -->
-  <section id="video-section">
-    <div class="video-overlay-text">Here’s what we have done</div>
+  <!-- Video Section with 2 videos -->
+  <section class="video-section" id="video-section">
+    <div class="video-overlay-text">Here's Our Gallery</div>
+
     <div class="video-container">
-      <video autoplay muted loop playsinline>
-        <source src="your-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <video src="your-video1.mp4" autoplay muted loop></video>
+    </div>
+
+    <div class="video-container">
+      <video src="your-video.mp4" autoplay muted loop></video>
     </div>
   </section>
 
