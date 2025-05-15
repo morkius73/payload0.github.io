@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Payload~0</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,20 +11,20 @@
   <!-- Custom Cursor -->
   <div class="cursor"></div>
 
-  <!-- Main First-Screen Section -->
+  <!-- MAIN SECTION -->
   <section id="main-section">
     <div class="neon-box">
       <div class="info">
         <h1 class="neon-text">Payload~0</h1>
         <p class="neon-subtext">
-          We don’t hack — we create. We don’t destroy — we rebuild.  
-          We don’t follow — we lead. We change the system.  
-          We change the society. We change everything.  
+          We don’t hack — we create. We don’t destroy — we rebuild.<br>
+          We don’t follow — we lead. We change the system.<br>
+          We change the society. We change everything.<br>
           They built a pay-to-win world. We’re here to crash it.
         </p>
         <button id="toggle-music" class="music-btn">Play Music</button>
         <div id="music-info">
-          <span id="current-time">0:00</span> / 
+          <span id="current-time">0:00</span> /
           <span id="total-time">0:00</span>
           <input id="progress-bar" type="range" min="0" max="100" value="0" />
         </div>
@@ -38,24 +37,40 @@
     </div>
   </section>
 
-  <!-- Video Section with 2 videos -->
-  <section class="video-section" id="video-section">
-    <div class="video-overlay-text">Here's Our Gallery</div>
+  <!-- GALLERY SECTION BELOW -->
+  <section id="video-section">
+    <h2 class="video-overlay-text">Here’s our gallery</h2>
+    <div class="video-gallery">
 
-    <div class="video-container">
-      <video src="miau.mp4" autoplay muted loop></video>
-    </div>
+      <div class="video-container">
+        <video autoplay muted loop playsinline>
+          <source src="miau.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-    <div class="video-container">
-      <video src="your-video.mp4" autoplay muted loop></video>
+      <div class="video-container">
+        <video autoplay muted loop playsinline>
+          <source src="your-video.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="video-container">
+        <video autoplay muted loop playsinline>
+          <source src="video1.mp4" type="video/mp4" />
+        </video>
+      </div>
+
     </div>
   </section>
 
   <!-- Background Music -->
-  <audio id="bg-music">
-    <source src="song1.mp3" type="audio/mp3" />
-  </audio>
+  <audio id="bg-music"></audio>
 
   <script src="script.js"></script>
+  <script>
+    function scrollToVideo() {
+      document.getElementById("video-section").scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
 </body>
 </html>
